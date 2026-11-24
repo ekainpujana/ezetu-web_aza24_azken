@@ -279,15 +279,7 @@ export function MapView({ refreshKey }: { refreshKey?: number }) {
     [spots],
   );
 
-  const visitedIds = useMemo(() => {
-    if (visitedSpotIds.size > 0) return visitedSpotIds;
-    return new Set([
-      '11111111-1111-4111-8111-111111111101',
-      '11111111-1111-4111-8111-111111111102',
-      '11111111-1111-4111-8111-111111111103',
-      '11111111-1111-4111-8111-111111111108',
-    ]);
-  }, [visitedSpotIds]);
+  const visitedIds = visitedSpotIds;
 
   const visitedSpots = useMemo(
     () => validSpots.filter((s) => visitedIds.has(s.id)),
@@ -302,18 +294,18 @@ export function MapView({ refreshKey }: { refreshKey?: number }) {
     if (loading) return [];
     const byCat = (s: Spot) => categoryFilter === 'all' || s.category === categoryFilter;
     if (mapLayer === 'visited') {
-      return validSpots.filter((s) => visitedIds.has(s.id) && byCat(s)).sort((a, b) => b.bayesian_rating - a.bayesian_rating);
+      return validSpots.filter((s) => visitedIds.has(s.id) && byCat(s)).sort((a, b) => getSpotRating(b) - getSpotRating(a));
     }
     if (mapLayer === 'saved') {
-      return validSpots.filter((s) => savedIds.has(s.id) && byCat(s)).sort((a, b) => b.bayesian_rating - a.bayesian_rating);
+      return validSpots.filter((s) => savedIds.has(s.id) && byCat(s)).sort((a, b) => getSpotRating(b) - getSpotRating(a));
     }
-    if (!map.current) return validSpots.filter(byCat).slice().sort((a, b) => b.bayesian_rating - a.bayesian_rating);
+    if (!map.current) return validSpots.filter(byCat).slice().sort((a, b) => getSpotRating(b) - getSpotRating(a));
     const b = map.current.getBounds();
     return validSpots
       .filter((s) => byCat(s) && b.contains(L.latLng(s.latitude, s.longitude)))
-      .sort((a, b) => b.bayesian_rating - a.bayesian_rating);
+      .sort((a, b) => getSpotRating(b) - getSpotRating(a));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validSpots, categoryFilter, loading, boundsVersion, mapLayer, visitedIds, savedIds]);
+  }, [validSpots, categoryFilter, loading, boundsVersion, mapLayer, visitedIds, savedIds, spotsRefreshKey]);
 
   const visibleRankedSpots = useMemo(() => {
     if (loading) return [];
