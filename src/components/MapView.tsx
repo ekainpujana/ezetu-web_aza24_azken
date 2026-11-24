@@ -16,7 +16,7 @@ import { SpotDrawer } from './SpotDrawer';
 import { Ikurrina } from './Ikurrina';
 import { flagPinHtml } from './FlagIcon';
 import { CategoryIcon, categoryPinSvg } from './CategoryIcon';
-import { getConqueredIconHtml, ConqueredBadge } from './ConqueredBadge';
+import { getConqueredIconHtml, ConqueredBadge, ConqueredIcon } from './ConqueredBadge';
 
 try {
   delete (L.Icon.Default.prototype as unknown as { _getIconUrl: unknown })._getIconUrl;
