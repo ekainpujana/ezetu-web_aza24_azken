@@ -177,7 +177,7 @@ function numericBubbleHtml(count: number): string {
 }
 
 export function MapView({ refreshKey }: { refreshKey?: number }) {
-  const { t, lang, focusedSpotId, setFocusedSpotId, focusedAreaBounds, setFocusedAreaBounds, mapLayer, setMapLayer, visitedSpotIds, savedSpotIds, isAuthenticated, setAuthOpen, spotsRefreshKey } = useApp();
+  const { t, lang, focusedSpotId, setFocusedSpotId, focusedAreaBounds, setFocusedAreaBounds, mapLayer, setMapLayer, visitedSpotIds, savedSpotIds, isAuthenticated, setAuthOpen, spotsRefreshKey, toggleVisited, toggleSaved } = useApp();
   const { spots, loading } = useSpots(refreshKey ?? spotsRefreshKey);
 
   const getSpotRating = (s: Spot) => getOverride(s.id)?.rating ?? s.bayesian_rating;
