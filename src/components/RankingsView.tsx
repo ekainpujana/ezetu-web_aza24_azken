@@ -10,7 +10,7 @@ import { Ikurrina } from './Ikurrina';
 import { ProtectedPhoto } from './ProtectedPhoto';
 import { PlaceBreadcrumb } from './PlaceBreadcrumb';
 import { CategoryIcon } from './CategoryIcon';
-import { ConqueredBadge } from './ConqueredBadge';
+import { ConqueredBadge, ConqueredIcon } from './ConqueredBadge';
 
 function norm(s: string): string {
   return s.trim().toLowerCase();
