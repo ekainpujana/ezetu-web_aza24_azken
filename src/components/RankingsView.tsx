@@ -62,7 +62,7 @@ function rankBadgeClass(rank: number): string {
 }
 
 export function RankingsView({ refreshKey }: { refreshKey?: number }) {
-  const { t, lang, setTab, setFocusedSpotId, setFocusedAreaBounds, rankingsFilter, clearRankingsFilter, isAuthenticated, setAuthOpen, spotsRefreshKey, visitedSpotIds } = useApp();
+  const { t, lang, setTab, setFocusedSpotId, setFocusedAreaBounds, rankingsFilter, clearRankingsFilter, isAuthenticated, setAuthOpen, spotsRefreshKey, visitedSpotIds, toggleVisited, toggleSaved } = useApp();
   const { spots, loading } = useSpots(refreshKey ?? spotsRefreshKey);
 
   const getSpotRating = (s: Spot) => getOverride(s.id)?.rating ?? s.bayesian_rating;
