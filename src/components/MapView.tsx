@@ -728,6 +728,47 @@ export function MapView({ refreshKey }: { refreshKey?: number }) {
                 {rank === 1 ? '★' : `#${rank}`}
               </div>
 
+              {/* Acciones rápidas (Quiero ir + Sello de visita) */}
+              {!isLocked && (
+                <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-0.5 rounded-full border border-slate-200/60 dark:border-slate-700/60 shadow-sm">
+                  {/* Botón rápido: Quiero ir */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!isAuthenticated) { setAuthOpen(true); return; }
+                      toggleSaved(s.id);
+                    }}
+                    title={isSaved ? (lang === 'EUS' ? 'Gordeetatik kendu' : 'Quitar de Quiero ir') : (lang === 'EUS' ? 'Joan nahi dut' : 'Quiero ir')}
+                    className={`p-1.5 rounded-full transition-all ${
+                      isSaved
+                        ? 'bg-amber-500/15 text-amber-500 hover:bg-amber-500/25'
+                        : 'text-slate-400 hover:text-amber-500 hover:bg-amber-500/10'
+                    }`}
+                  >
+                    <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
+                  </button>
+
+                  {/* Botón rápido: He estado aquí (Sello oficial azul) */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!isAuthenticated) { setAuthOpen(true); return; }
+                      toggleVisited(s.id);
+                    }}
+                    title={isVisited ? (lang === 'EUS' ? 'Hemen izan naiz (Markatuta)' : 'He estado aquí (Visitado)') : (lang === 'EUS' ? 'Hemen izan naiz' : 'He estado aquí')}
+                    className={`p-1 rounded-full transition-all ${
+                      isVisited
+                        ? 'hover:scale-110'
+                        : 'opacity-50 hover:opacity-100 hover:scale-110'
+                    }`}
+                  >
+                    <ConqueredIcon className="w-4 h-4" checked={isVisited} />
+                  </button>
+                </div>
+              )}
+
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800">
                 {s.cover_photo && <ProtectedPhoto src={s.cover_photo.image_url} alt={s.name} loading="lazy" className="object-cover" />}
               </div>
