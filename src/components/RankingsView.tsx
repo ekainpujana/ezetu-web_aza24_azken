@@ -62,12 +62,12 @@ function rankBadgeClass(rank: number): string {
 }
 
 export function RankingsView({ refreshKey }: { refreshKey?: number }) {
-  const { t, lang, setTab, setFocusedSpotId, setFocusedAreaBounds, rankingsFilter, clearRankingsFilter, isAuthenticated, setAuthOpen, spotsRefreshKey } = useApp();
+  const { t, lang, setTab, setFocusedSpotId, setFocusedAreaBounds, rankingsFilter, clearRankingsFilter, isAuthenticated, setAuthOpen, spotsRefreshKey, visitedSpotIds } = useApp();
   const { spots, loading } = useSpots(refreshKey ?? spotsRefreshKey);
 
   const getSpotRating = (s: Spot) => getOverride(s.id)?.rating ?? s.bayesian_rating;
   const getSpotReviewsCount = (s: Spot) => getOverride(s.id)?.reviewsCount ?? s.ratings_count;
-  const { visitedIds } = useVisits();
+  const visitedIds = visitedSpotIds;
   const { savedIds } = useWishlist();
 
   const isEus = lang === 'EUS';
