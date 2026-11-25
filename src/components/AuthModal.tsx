@@ -45,8 +45,8 @@ export function AuthModal({ onClose }: { onClose: () => void }) {
         login({ id: `mock-${Date.now()}`, email, name: name || email.split('@')[0] });
         onClose();
       }
-    } catch {
-      setError(t('authError'));
+    } catch (err: any) {
+      setError(err?.message || err?.error_description || String(err));
     } finally {
       setLoading(false);
     }
