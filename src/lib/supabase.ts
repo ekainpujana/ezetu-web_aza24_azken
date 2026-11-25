@@ -7,7 +7,7 @@ export const supabaseUrl = url ?? '';
 export const hasSupabase = !!(url && anon);
 
 export const supabase: SupabaseClient = hasSupabase
-  ? createClient(url!, anon!, { auth: { persistSession: false } })
+  ? createClient(url!, anon!, { auth: { persistSession: true, autoRefreshToken: true } })
   : new Proxy({} as SupabaseClient, {
       get() {
         throw new Error('Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
